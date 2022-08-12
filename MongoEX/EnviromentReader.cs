@@ -12,7 +12,12 @@ public static class EnviromentReader
                 continue;
             
             if (data[0] == key)
-                return data[1];
+            {
+                var result = data[1];
+                for (int i = 2; i < data.Length; i++)
+                    result += "=" + data[i];
+                return result;
+            }
         }
         return null;
     }

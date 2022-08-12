@@ -15,6 +15,16 @@ builder.Services.AddSingleton<MongoService>(opt =>
     return service;
 });
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("MainPolicy", cors =>
+    {
+        cors.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyOrigin();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MainPolicy");
 
 app.UseHttpsRedirection();
 
